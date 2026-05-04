@@ -1,0 +1,312 @@
+								   Dart Programming language
+..........................................................................................................................................................................................................................................
+
+What is Dart?
+   Dart is object-oriented, class based, garbage collected language with c-style   syntax.
+   Dart is Object oriented ,functionally style ,General Purpose programming language.
+   Dart is strongly typed or static typed ,type inferenced Programming language
+
+Strongly Typed(static typed): The type of variable is verified during compile time.
+ -c,c++,java,kotlin,c# etc...
+
+Dynamic Typed (weak Typed):The type of variable is not verified during compile time
+-js,python etc...
+
+Compiled code and dart;
+...........................................
+
+if you take any programming language like java,kotlin,c or c++, when you compile you will get only one intermediate code(Assembly)
+
+java/kotlin ---->compile----> .class(byte code)----Execute
+c/c++ ----->compile-------->.obj( Plaftorm(os) Assembly)-------Execute
+
+
+if you take dart programming language
+
+                     			  | -----machine code(platform(os) specific assembly)) - android /ios/windows/mac/Linux
+   dart code----compile	  | -----JavaScript 
+                     			  | -----Web assembly
+
+History of Dart:
+................
+ Dart was designed by Lars Bak and Kasper Lun at google.
+ Dart was introduced at Go to conference in Denmark oct 2011, it was released in Nov  2013
+ Dart was introduced initially to replace JavaScript and java script runtime inside  chrome, to embed Dart VM in chrome. Later the plan was     dropped to introduce dart  runtime inside  chrome instead to convert dart code into js code.
+ 
+Dart versions
+
+dart 1.0 - first version
+dart 1.9
+dart 2.0
+dart 2.6
+dart 3.0
+dart 3.X.X....
+
+Types of apps and its Runtime of dart:
+.....................................
+ Dart Software development(SDK) ships with a standalone dart runtime.
+ You can test language features cli environment.
+ Dart provides standard libs for building apps
+
+
+Dart Deployment types:
+
+Deployment type  Target Platform  Platform Specific     Requires Dart VM
+ JavaScript         	Browser                      No                   NO
+
+Web Assembly      Browser        		     No                 NO
+
+ Self-contained
+ executable            win,linux,mac               Yes                No
+
+ AOT Module         win,linux,mac                Yes                No
+
+ JIT Module          win,linux,mac     	    Yes                Yes
+
+Portable Module   win,linux,mac                NO                 Yes
+
+Based on deployment types , dart can be used to build different types of apps
+1.web app - js ,webassembly
+2.native -     desktop ,mobile ,tv
+................................................................................
+   			 Dart setup
+..................................................................................
+
+1.Dart SDK
+2.IDE - vocode, IntelliJ Idea, Android Studio
+
+Steps:
+1.Get The Dart SDK
+ 1.1. Build from the source code : Get source code of the dart and build accordingly
+       -this is only applicable Linux.
+ 1.2.Docker image
+ 1.3.via Chocolatey 
+ 1.4.via downloading the SDK as a zip file
+ https://dart.dev/get-dart/archive
+
+Via package managers  for all os
+https://dart.dev/get-dart
+
+Note: 
+Download zip version and extract it
+ADD  dart-sdk\bin in env variable
+
+After installing , you can verify the dart installation.
+
+open cmd prompt
+dart --version
+Dart SDK version: 3.1.2 (stable) (Tue Sep 12 16:26:23 2023 +0000) on "windows_x64"
+
+Install IntelliJ IDEA Community Edition  or vs code.
+.....................................................................................
+							Dart Programming language Getting started
+
+
+dart tool:
+ It is used to create ,manage dart projects
+-compilation,running...
+
+>dart
+A command-line utility for Dart development.
+
+Usage: dart <command|dart-file> [arguments]
+
+Global options:
+-v, --verbose               Show additional command output.
+    --version               Print the Dart SDK version.
+    --enable-analytics      Enable analytics.
+    --disable-analytics     Disable analytics.
+    --suppress-analytics    Disallow analytics for this `dart *` run without changing the analytics configuration.
+-h, --help                  Print this usage information.
+
+Available commands:
+  analyze    Analyze Dart code in a directory.
+  compile    Compile Dart to various formats.
+  create     Create a new Dart project.
+  devtools   Open DevTools (optionally connecting to an existing application).
+  doc        Generate API documentation for Dart projects.
+  fix        Apply automated fixes to Dart source code.
+  format     Idiomatically format Dart source code.
+  info       Show diagnostic information about the installed tooling.
+  pub        Work with packages.
+  run        Run a Dart program.
+  test       Run tests for a project.
+
+Create Dart Project
+
+dart create --help
+Create a new Dart project.
+
+Usage: dart create [arguments] <directory>
+-h, --help                       Print this usage information.
+-t, --template                   The project template to use.
+
+          [console] (default)    A command-line application.
+          [package]              A package containing shared Dart libraries.
+          [server-shelf]         A server app using package:shelf.
+          [web]                  A web app that uses only core Dart libraries.
+
+    --[no-]pub                   Whether to run 'pub get' after the project has been created.
+                                 (defaults to on)
+    --force                      Force project generation, even if the target directory already exists.
+
+Run "dart help" to see global options.
+
+create command line project:
+............................
+
+dart create --template console myapp 
+dart create myapp => Default template is console
+
+dart create myapp
+Creating myapp using template console...
+
+  .gitignore
+  analysis_options.yaml
+  CHANGELOG.md
+  pubspec.yaml
+  README.md
+  bin\myapp.dart
+  lib\myapp.dart
+  test\myapp_test.dart
+
+Running pub get...
+  Resolving dependencies...
+  Changed 46 dependencies!
+
+Created project myapp in myapp! In order to get started, run the following commands:
+  cd myapp
+  dart run
+
+Folders and files:
+...................
+
+pubspec.yaml
+   -Build script like package.json,pom.xml,gradle.build
+
+name: myapp
+description: A sample command-line application.
+version: 1.0.0
+# repository: https://github.com/my_org/my_repo
+
+environment:
+  sdk: ^3.1.2
+
+# Add regular dependencies here.
+dependencies:
+  # path: ^1.8.0
+
+dev_dependencies:
+  lints: ^2.0.0
+  test: ^1.21.0
+
+
+test
+  -Contains unit and integration testing files
+lib
+  -contains utility apis
+bin
+  -contains source of code app and entry point of dart application.
+
+All dart programs are saved with "fileName.dart"
+
+Every dart App must have entry point called "main"
+.....................................................................................
+
+coding style -c,c++,kotlin
+
+General function syntax:
+returnType functionname(){
+   //body of the function
+}
+main function:
+
+bin/myapp.dart
+void main() {
+  //code
+  print("Hello Dart");
+}
+
+How to run dart program?
+
+dart run  -->Will pick main program from the bin folder
+
+dart run [options] [DART_FILE] [args]
+
+DartAndFlutter\myapp>dart run
+Building package executable...
+Built myapp:myapp.
+Hello Dart
+DartAndFlutter\myapp>dart run bin/myapp.dart
+Hello Dart
+
+main function can take command line args'
+........................................
+
+void main(List<String> args) {
+  print(args);
+  print("Hello Dart with args");
+}
+
+DartAndFlutter\myapp>dart run bin/myapp.dart welcome how are you
+[welcome, how, are, you]
+Hello Dart with args
+...................................................................................
+			  Dart compilation
+
+As we discussed already, the dart code can be compiled into multiple formats.
+
+dart compile --help
+Compile Dart to various formats.
+
+Usage: dart compile <subcommand> [arguments]
+-h, --help    Print this usage information.
+
+Available subcommands:
+  aot-snapshot   Compile Dart to an AOT snapshot.
+  exe            Compile Dart to a self-contained executable.
+  jit-snapshot   Compile Dart to a JIT snapshot.
+  js             Compile Dart to JavaScript.
+  kernel         Compile Dart to a kernel snapshot.
+
+Run "dart help" to see global options.
+
+How to compile the dart code into platform specific(exe):
+..........................................................
+
+dart compile exe bin/myapp.dart
+Generated: e:\session\ibm\2023\oct\dartandflutter\myapp\bin\myapp.exe
+
+How to run compiled exe:
+E:\session\IBM\2023\Oct\DartAndFlutter\myapp\bin>myapp.exe hello
+[hello]
+Hello Dart with args
+
+How to compile the dart code into js:
+....................................
+
+
+G:\CTS\2026\dartapps\hello>dart compile js bin/welcome.dart -o build/welcome.js
+
+how to run compiled JavaScript?
+
+you can run js code using browsers or node.js runtime.
+
+Node:
+G:\CTS\2026\dartapps\hello>node build/welcome.js
+Hello Dart
+
+Portable Modules(kernel): Platform independent;
+....................................................................................
+
+G:\CTS\2026\dartapps\hello>dart compile exe bin/welcome.dart -o build/welcome.exe
+Generated: g:\cts\2026\dartapps\hello\build\welcome.exe
+
+>G:\CTS\2026\dartapps\hello>dart compile kernel bin/welcome.dart -o build/welcome.dll
+Compiling bin/myapp.dart to kernel file bin/myapp.dill.
+
+How to run dart kernel module:
+dart run bin/myapp.dill
+[]
+Hello Dart with args
+....................................................................................
