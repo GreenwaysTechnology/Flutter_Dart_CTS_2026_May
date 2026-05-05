@@ -631,3 +631,347 @@ print("Name ${name?.toUpperCase()}");
 
 Solution 3:
 print("Name2 ${name!.toUpperCase()}");
+
+.....................................................................................
+				Late variables
+.....................................................................................
+
+late modifier has two use cases
+
+1.Declaring non nullable variable that is initialized after its declaration
+2.Lazily initializing variable : during runtime.
+
+//Script variables
+//String name = "Subramanian";
+//Script variables
+//String name = "Subramanian";
+late String name;
+
+void main() {
+  name = "Subramanian";
+  late String city;
+  print(name);
+  city="Coimbatore";
+  print(city);
+}
+
+if you fail to initialize a late variable, a runtime error occurs when the variable is used.
+
+late String name="something";
+
+when you mark a variable as late but initialize it at its declaration, then the initializer runs the first the variable is used.
+
+
+....................................................................................
+				Operators
+....................................................................................
+
+Most of the operators are derived from c and c++, java 
+
+Arithmetic Operators:
+
++,-,-expersion(unary),* , /, ~/(div return int as res),% 
+
+void main() {
+  var x = 10;
+  var y = 2;
+  print("Add ${x + y}");
+  print("Subtract ${x - y}");
+  print("Multiply ${x * y}");
+  print("Div ${x / y}");
+  print("Remainder ${x % y}");
+
+}
+Equality and Relational operators:
+
+== 
+!=
+>
+<
+>=
+<=
+void main() {
+  var x = 10;
+  var y = 20;
+  var c = x == y;
+  print("c $c");
+}
+
+Type Test Operators:
+...................
+Checking data type of variable during runtime
+
+as - Type cast operator.
+is - True if the object has specified type
+is! - true if the object does not have the specified type.
+
+void main() {
+  int a = 10;
+  print("${a is int}");
+}
+
+Assignment operators
+
+=
+*=,+=,%=
+??=
+
+//Assign value to b if  b is null other wise b stays the same
+b??=value
+
+void main() {
+  int? a = null;
+  a ??= 0;
+  print("a $a");
+}
+
+Logical Operators:
+
+! - not
+&& - And
+|| - OR
+
+Conditional Expressions (ternary)
+...............................
+=> condition ? expr1 : expr2
+    if condition is true, evaluates expr1 other wise expr
+=> expr1 ?? expr2
+   if expr1 is non null return its null, otherwise evaluates and returns value of expr
+
+void main() {
+  var isValid = true;
+  var result = isValid ? "Valid" : "InValid";
+  print("result $result");
+
+  var name;
+  var res = name ?? "Subramanian";
+  print("Name is $res");
+}
+............
+Cascade Operators: to be discussed in oo.
+
+Other Operators:
+................
+() - function application operator
+[] - subscript operator
+?[] - conditional subscript
+. - Member access operator
+?. - conditional Member access
+! -Null assertion operator
+.......................................................................................................................................................................................................................................
+										Functions
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+....................................................................................
+				Functions
+....................................................................................
+
+Dart is a true object-oriented language, so even functions also Objects and has type, "Function".
+
+How to declare functions?
+
+returnType funName(args) {
+  //function body
+  return statement
+}
+
+//declaration
+void sayHello() {
+  print("Hello");
+}
+
+void sayHai() {
+  print("hai");
+}
+
+//main function
+void main() {
+  //invocation
+  sayHello();
+  //
+  sayHai();
+}
+
+Function Parameters and Args:
+.............................
+
+void add(int a, int b) {
+  int c = a + b;
+  print("C $c");
+}
+
+void calculate(var a, var b) {
+  int c = a * b;
+  print("c $c}");
+}
+
+void main() {
+  add(10, 10);
+  calculate(10, 10);
+  calculate("12", "10");
+}
+
+Note:
+
+ Function args are declared with type - strong typing , so that we can only pass that only specific type - if you pass different types, you get compile time error.
+
+void add(int a, int b) {
+  int c = a + b;
+  print("C $c");
+}
+add(10, 10);
+
+ Function args are declared with "var" - dynamic typing , so that we can  pass that  any  type - if you pass different types, you wont get compile time error.
+ There is possibility it causes runtime error.
+....................................................................................
+
+dynamic keyword:
+..............................
+var:
+ dart infers the type at compile time
+ Type becomes fixed after first assigment
+
+void main(){
+  var name = "Subramnaian"; // infered as string 
+  name = "dart"; // no compile time error
+  name =100; // compile time error, because once the variable is initalized 
+}
+
+dynamic:
+
+void main() {
+  var name = "Subramnaian"; // infered as string
+  name = "dart"; // no compile time error
+  //name =100; // compile time error, because once the variable is initalized
+
+  dynamic i;
+  i = 100;
+  print("$i");
+  i = true;
+  print("$i");
+  i = "Hello";
+  print("$i");
+
+}
+In Function args:
+var behaves like dynamic
+
+void input(var myvar){
+   print("Myvar is $myvar");
+}
+void main() {
+  input("string");
+  input(10);
+  input(34.5);
+  input(false);
+}
+Why:
+ because no initial value - no inference
+
+dynamic and var both are same with respect to function args
+void input(dynamic myvar){
+  print("Myvar is $myvar");
+}
+
+
+
+Args and null : nullable args:
+................................
+
+void sayHello(String name){
+   print("$name");
+}
+
+void main(){
+   sayHello("Subramanian");
+   sayHello(null);
+}
+Here the code is showing compile time error.
+
+
+void sayHello(String? name){
+   print("$name");
+}
+
+void main(){
+   sayHello("Subramanian");
+   sayHello(null);
+}
+Here there is no compile time error
+
+void sayHello(String? name) {
+  var res = name ?? "Your Name";
+  print("$res");
+}
+
+void main() {
+  sayHello("Subramanian");
+  sayHello(null);
+}
+
+with var keyword:
+void sayHello(String? name) {
+  var res = name ?? "Your Name";
+  print("$res");
+}
+void sayHai(var name){
+  print("Hai ${name ?? "Guest"}");
+
+}
+
+void main() {
+  sayHello("Subramanian");
+  sayHello(null);
+  sayHai(null);
+}
+
+Returning value from the functions
+
+returntype functionName(){
+	return value
+}
+int add(int a, int b) {
+  return a + b;
+}
+
+dynamic getValue(var value) {
+  return value;
+}
+
+String? getName(bool flag) {
+  if (flag) {
+    return "Subramanian";
+  }
+  return null;
+}
+
+//multiple values
+(String?, int?) getUser() {
+  return ("Subramanian", 30);
+}
+
+(dynamic?, dynamic?) getUser1() {
+  return (45.56, 30);
+}
+
+void main() {
+  var res = add(10, 20);
+  print("$res");
+  print(getValue("string"));
+  print(getValue(333));
+  print(getValue(true));
+  print(getValue(null));
+  print(getValue(33.3));
+  var (name, age) = getUser();
+  print("$name $age");
+}
+
+
+
+
+
+
+
+
+
+
+
