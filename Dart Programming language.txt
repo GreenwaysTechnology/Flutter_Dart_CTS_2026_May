@@ -964,13 +964,108 @@ void main() {
   var (name, age) = getUser();
   print("$name $age");
 }
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+									 Function Parameters - Advanced
 
+1.Named parameters
 
+Named parameters must be enclosed in curly braces ('{' and '}').
+When we use Named parameters , we can initialize the  variables with default values, so that we can omit those variables.
 
+Named Optional Parameters:
+ => when we defining function, use {param1,param2...} to specify named parameters
+ => we we calling functoin you can specifiy the parameter name:value, if you want you     can even skip (optional Parameters)
 
+void sayName({String? name = "Your Name"}) {
+  print("Name is $name");
+}
 
+void main() {
+  sayName(name: "Subramanian");
+  sayName();
+}
 
+void sayName({String? name = "Your Name"}) {
+  print("Name is $name");
+}
 
+void widget(
+    {String? name = "Layout",
+    int? height = 0,
+    int? width = 0,
+    String? theme = "light"}) {
+  print("name $name");
+  print("height $height");
+  print("width $width");
+  print("theme $theme");
+}
+
+void main() {
+  sayName(name: "Subramanian");
+  sayName();
+  //widget(name, height, width, theme);
+  widget();
+  widget(name: "Tab", theme: "dark");
+  widget(name: "Panel", width: 100, height: 200, theme: "light");
+}
+
+...........................................................................
+
+Named and Required Parameters:
+.............................
+void httpClient(
+    {required String? url,
+    String? method = "GET",
+    required String? payload,
+    String? headers = "headers"}) {
+  print("url $url");
+  print("method $method");
+  print("payload $payload");
+  print("headers $headers");
+}
+
+void main() {
+  httpClient(url: "http://www.mockapi.com/users", payload: "Users");
+  httpClient(url: "http://www.mockapi.com/users", payload: "Users",method: "POST");
+
+}
+....................................................................................
+
+Positional Parameters:
+......................
+ General Function args are Positional.
+
+void sendMail(String from, String to, String msg) {
+  print("From $from");
+  print("To $to");
+  print("Message $msg");
+}
+
+void main() {
+  sendMail("admin@ibm.com", "foo@ibm.com", "You got a mail");
+}
+
+Positional Optional Parameter:
+.............................
+Wrapping a set of function parameters in [] marks them as optional positional parameter. if you don't provide default value, their type would be null.
+
+void sendMail(String? from, String? to, String? msg, [String? device="Mobile"]) {
+  print("From $from");
+  print("To $to");
+  print("Message $msg");
+  print("Device $device");
+}
+
+void main() {
+  sendMail("admin@ibm.com", "foo@ibm.com", "You got a mail");
+  sendMail(null, null, null);
+  sendMail("admin@ibm.com", "foo@ibm.com", "You got a mail","Computer");
+}
+
+Note:
+ Positional optional parameters must go last arg only
+ Positional optional parameters cant mix in between.
+ All Positional args can be optional
 
 
 
