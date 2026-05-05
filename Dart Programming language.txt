@@ -251,7 +251,7 @@ void main(List<String> args) {
 DartAndFlutter\myapp>dart run bin/myapp.dart welcome how are you
 [welcome, how, are, you]
 Hello Dart with args
-...................................................................................
+......................................................................................................................................................................................................................................
 			  Dart compilation
 
 As we discussed already, the dart code can be compiled into multiple formats.
@@ -309,4 +309,325 @@ How to run dart kernel module:
 dart run bin/myapp.dill
 []
 Hello Dart with args
+.......................................................................................................................................................................................................................................
+													Learning Path
+
+Learning Path:
+1.Dart language fundamentals
+2.Dart Object oriented programming
+3.Dart functional programming 
+4.Dart Async Programming
+5.Datastructures and collections
+6.Exception Handling
+
+Language Fundamentals:
+
+1.Variables
+2.Type system
+3.literals (values)
+
+Variable declaration: Syntax 1
+
+Type variableName = value(literal)
+
+Type:
+ Java,C# like languages has two types of datatypes
+1.primitive types - int,float,char,boolean
+2.reference types - object types
+
+In Dart everything is object, no Primitive Types,Mostly Reference Types
+
+Built in Types:
+...............
+1.Numbers   
+    int,double
+2.Strings (String)
+3.Booleans (bool)
+
+Advanced Types:
+1.List
+2.Set
+3.Map
+4.Symbol
+5.Null
+6.Records
+7.Runes
+
+
+Eg:
+void main() {
+  //declare variable
+  int a = 10;
+  double d = 10.5;
+
+  print("int type" + a.toString());
+  print("doubel type" + d.toString());
+}
+
+
+Variable declaration: Syntax 2
+
+Type inference syntax: The type of variable is "understood" based on the value we assign
+
+var VariableName=value
+
+var variableName = value(literal)
+void main() {
+  //declare variable
+  int a = 10;
+  double d = 10.5;
+
+  print("int type" + a.toString());
+  print("doubel type" + d.toString());
+
+  //type inference syntax
+  var b = 10;
+  var c = 134.78;
+}
+
+int:
+ =>64 bit in case of native platform , in case if the code converted into js size    would be 64 bit floating point
+
+double
+ =>64 bit floating point in all platforms 
+
+Note: type inference syntax is mostly recommended.
+...................................................................................
+
+Strings:
+=>16 bit UTF-16 code units
+=>You can use '' or ""
+=>String concatenation can be done using + operator or string interpolation.
+
+String interpolation is done using ${expression}
+void main() {
+  String str = 'Hello';
+  var name = "Subramaian";
+  //print values : Using + operator
+  print("Name " + name);
+  //using string interpolation
+  print("Name ${name}");
+  print("Name $name");
+
+}
+
+Multi line Strings:
+....................
+""" -triple quotes
+
+void main() {
+  String str = 'Hello';
+  var name = "Subramaian";
+  //print values : Using + operator
+  print("Name " + name);
+  //using string interpolation
+  print("Name ${name}");
+  print("Name $name");
+
+  var html = """
+       <html>
+         <head>
+        <title>Hello</title>
+        </head>
+        <body>
+        <h1>Hello $name</h1>
+        </body>
+        </html>
+  """;
+  print(html);
+}
+.................................
+Booleans:
+=>1 bit value
+=>true or false 
+
+void main() {
+  var isValid = true;
+  var isEnabled = false;
+  print("Is Valid $isValid");
+  print("Is Enabled $isEnabled");
+}
+...................................................................................
+			Variable reinitialization
+..................................................................................
+
+final and const:
+
+ Instead of using var keyword we can use final or const
+
+final :
+  final j = 10;
+  print("j $j");
+  j = 33434;
+
+compile time error:
+10:3: Error: Can't assign to the final variable 'j'.
+  j = 33434;
+
+const:
+   //const d = 10;
+  const int d = 10;
+  print("d $d");
+  //d =90; - cant be reinitialized
+
+const vs final:
+..............
+final variables can only be set once and it its initialized when accessed : lazy
+const variables are implicitly final but it is a compile time constant: eager.
+
+const are initialized during compile time 
+final are initialized during runtime 
+
+Testing: 
+ How to know final is lazy, const is eager.
+
+void main() {
+  var i = 10;
+  print("i $i");
+  //reinitialize the variable
+  i = 90;
+  print("i $i");
+
+  //without type: type inference
+  //final j = 10;
+  final int j = 10;
+  print("j $j");
+  //j = 33434;
+
+  //const d = 10;
+  const int d = 10;
+  print("d $d");
+  //d =90; //- cant be reinitialized
+}
+.....................................................................................
+				 Null
 ....................................................................................
+
+What is null?
+
+  Null itself is value, Its type is Object.
+  Null itslef is object.
+
+History Of Null:
+
+  In computing, a null pointer or null reference is a value saved for indicating that the pointer or reference does not refer to a valid object(value).
+
+In 2009, Tony Hoare stated that he invented the null reference in 1965 as part of the ALGOL W language. 
+
+In that 2009 reference Hoare describes his invention as a "billion-dollar mistake":
+
+reference: https://en.wikipedia.org/wiki/Null_pointer
+
+.....................................................................................
+			How to handle Null?
+
+"Null" Reference is unavoidable in any Object Oriented Systems like c++,java,C#,Kotlin etc...
+
+Handling null is more challenge
+
+In java ,C++,C#, in these languages if you call any properties on null object meaning that the variable points null object, will throw error/Exception.
+
+if exception happens , the program will be terminated with reporting.
+
+In java:
+ 
+ Employee emp=null;
+ emp.id =1;
+
+When you run this code you will get NullPointerException
+
+Solution:
+  if(emp!=null){
+	emp.id=1
+  }  
+The above code might be duplicated across many places.
+
+After java, many languages started thinking that how to safely handle null.
+
+Dart and Null:
+..............
+Since Dart is  Object oriented, there is possibility of null.
+
+Can we declare null value to a variable?
+
+void main(){
+  int a = null;  
+}
+
+Yes and No, by default a variable cant hold "null".
+
+What if i want to initialize null?
+
+void main() {
+  int? a = null;
+  var b = null;
+}
+Note:
+ with type annotation we have to use "?"
+ with var keyword it is implicit.
+
+
+when you declare a variable without initializing any value
+
+void main() {
+   int c;
+}
+no compile time error.
+
+Note:
+ You must initialize the variable before using them. Value can be null or type related value.
+
+void main() {
+  int? c;
+  print("c $c");
+}
+Here c is implicitly assigned with null.
+ 
+void main() {
+  var d;
+  print("d ${d}");
+}
+
+Here d is implicitly assigned with null 
+
+Initallly you declare null and later you can reinitalize with values.
+
+void main() {
+  int? c;
+  print("c $c");
+  c =10;
+  print("c $c");
+
+  var d;
+  print("d ${d}");
+  c=20;
+  print("d ${d}");
+
+}
+
+Property access on nullable object:
+...................................
+
+void main() {
+  //String? name = "subramanian";
+  String? name = null;
+  print("Name $name");
+  print("Name ${name.toUpperCase()}");
+}
+
+Compiler gives error
+The method 'toUpperCase' can't be unconditionally invoked because the receiver can be 'null'
+
+Solution:
+Try making the call conditional (using '?.') or adding a null check to the target ('!') or test with if condition of not null.
+
+ //solution -1
+  if (name != null) {
+    print("Name ${name.toUpperCase()}");
+  }
+
+Solution 2
+print("Name ${name?.toUpperCase()}");
+
+Solution 3:
+print("Name2 ${name!.toUpperCase()}");
