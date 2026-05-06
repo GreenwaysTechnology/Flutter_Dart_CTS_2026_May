@@ -1203,4 +1203,318 @@ Differences between switch statement and switch expressions:
 4.case patterns must be separated by => instead of ":"
 5.default case is replaced by "_" 
 
+.....................................................................................
+			 Functional Programming in Dart
+.....................................................................................
+
+What is Functional Programming?
+   Functional Programming is one of the programming paradigm/style to build apps.
+
+Popular Programming styles/paradigms:
+.....................................
+1.Object Oriented Programming
+2.procedural Programming
+3.Functional Programming
+etc.....
+
+Programming languages are based on those paradigms only.
+
+if you take any programming language , which follows one or many programming styles.
+
+c language follows procedural style, so we can call c is procedural language.
+C++ language follows object oriented programming so we can call C++ is object oriented
+java was object oriented, now java is functional and object oriented.
+JavaScript is object based, functional style
+kotlin is object oriented , functional style
+
+if a language mixes one or more programming paradigm is called "hybrid languages".
+
+What about dart?
+  
+ Dart is object oriented, functional style programming language.
+
+What it is functional programming?
+
+ Functional programming principles and patterns implemented from the mathematics called  "Lambda Calculus".
+
+Lambda calculus (also written as λ-calculus) is a formal system in mathematical logic for expressing computation based on function abstraction and application using variable binding and substitution
+
+Why Lambda Calculs was created?
+  Lambda calculus was created to "simulate" computer program data processing.
+  Lambda calculus provides the abstract computer.
+
+In 1950's Based on Lambda calculus , new programming style and language was created.
+
+1.LISP - First functional programming language.
+
+Based LISP many languages were created.......
+
+1.CommonLisp
+2.Lisp For JVM-Clojure
+3.Haskell
+4.javascript
+5.JVM
+   Groovy,scala ,Kotlin, Java 8 ,Clojure......
+
+Now Dart is also based on FP programming ......
+....................................................................................
+			 Principles of Functional Programming
+....................................................................................
+
+1.Functions are first class citiziens
+2.Referencial  transparency
+3.Pure functions
+4.No loops, Recurssive functions.
+
+Languages follow all above principles are called "Pure functional Language" other wise functional style language.
+
+Dart is functional style language.
+..................................................................................
+Dart Functional Programming implementation:
+
+1.Functions are first class citiziens
+
+ What is first class citizen(special).
+    Functions are passed around (in , out).
+
+This means the language supports passing function as args to other functions, returning them as the values from functions and assigning them to variables or storing them in data structure.
+ 
+ "Functions are literals , means that functions are value like int,double string"
+
+for eg:
+ var a=10;
+ var is keyword
+ a is variable
+ 10 is value
+
+In Dart functions are first class objects(values):
+..................................................
+You can assign function into variable , pass them as parameter to another function, and you return from another function.
+
+1.How to assign function into a variable
+
+void sayHello() {
+  print("Hello");
+}
+
+void main() {
+  //invoke function
+  //sayHello();
+  //Here var is keyword and hello is variable , sayHello is function
+  var hello = sayHello;
+}
+
+hello variable can be used to invoke that function.
+import 'FunctionReturns.dart';
+
+void sayHello() {
+  print("Hello");
+}
+
+void main() {
+  //invoke function
+  //sayHello();
+  //Here var is keyword and hello is variable , sayHello is function
+  var hello = sayHello;
+  hello();
+  //Type Annotation
+  Function tmpHello = sayHello;
+  tmpHello();
+
+  //way of calling functions: using variable hello()
+  //using variable.call()
+  hello.call();
+  tmpHello.call();
+}
+
+.................................................................................
+			 Anonymous Functions
+................................................................................
+
+Most of functions are "named" functions, functions with name, you can create a nameless function called a "anonymous functions".
+
+Anonymous functions other wise called as "lambda functions or closure".
+
+Anonymous functions are similar to named functions which takes args,parameters,return values optional and named args
+
+Syntax:
+var variable=([type ? variable]) {
+
+};
+
+eg:
+//anonymous function
+Function hello = () {
+   print("Hello");
+};
+var hai = (){
+  print("Hai");
+};
+
+void main() {
+  hello();
+  hai();
+}
+
+....
+
+Anonymous functions within another function:
+
+void main() {
+  //anonmous function
+  var hello = () {
+    print("Hello");
+  };
+  hello();
+}
+
+Args ,parameters in anonyous functions :Positional and Named
+//positional 
+var add = (int a, int b) {
+  int c = a + b;
+  print("c $c");
+};
+//Named parameters with default values
+var multiply = ({int? a = 0, int? b = 0}) {
+  int c = (a ?? 0) * (b ?? 0);
+  print("a=$a b=$b c $c");
+};
+
+void main() {
+  add(10, 10);
+  multiply();
+  multiply(a: 10, b: 20);
+  multiply(a: 10, b: null);
+}
+...................................................................................
+			   Returning values from anonymous
+
+//positional
+var add = (int a, int b) {
+  int c = a + b;
+  print("c $c");
+};
+//Named parameters with default values
+// var multiply = ({int? a = 0, int? b = 0}) {
+//   int c = (a ?? 0) * (b ?? 0);
+//   // print("a=$a b=$b c $c");
+//   return "a=$a b=$b c $c";
+// };
+Function multiply = ({int? a = 0, int? b = 0}) {
+  int c = (a ?? 0) * (b ?? 0);
+  // print("a=$a b=$b c $c");
+  return "a=$a b=$b c $c";
+};
+
+void main() {
+  add(10, 10);
+  // multiply();
+  // multiply(a: 10, b: 20);
+  // multiply(a: 10, b: null);
+  print(multiply());
+  print(multiply(a: 10, b: 20));
+  print(multiply(a: 10, b: null));
+
+}
+..................................................................................
+				Arrow Functions
+...................................................................................
+//if function has single line expression
+var greet_ = () {
+  print("Hello");
+};
+//single line expression are replaced by arrow
+// var greet = () => {
+//   print("Hello")
+// };
+var greet = () => print("Hello");
+var add = (int a, int b) => a + b;
+var multiply = ({int a = 0, int b = 0}) => "c = ${a * b}";
+
+void main() {
+  greet();
+  print(add(10, 10));
+  print(multiply(a: 10, b: 10));
+}
+....................................................................................
+			 Higher Order functions
+....................................................................................
+
+Higher order function means passing function as parameter to another function,since function is value.
+
+void callback(Function cb) {
+  
+}
+
+void main() {
+  callback();
+}
+
+There are two patterns to pass function as paramter..
+
+1.via variables which hold functions
+2.via functions directly
+
+void callback(Function cb) {}
+
+void add(int a, int b) {
+  
+}
+
+void main() {
+//  callback();
+  add(10, 10); //passing values directly
+  int x = 10;
+  int y = 20;
+  add(x, y);
+}
+.....
+Basic Higher order function:
+void callback(Function cb) {
+  cb();
+}
+
+//via variable
+Function myFun = () {
+  print("My fun");
+};
+Function myArrowFun = () => print("My fun");
+
+void main() {
+  callback(myFun);
+  callback(myArrowFun);
+}
+.....................................................................................
+Higher Order Functions args and parameters
+....................................................................................
+//Normal function as Higher order function
+void callback(Function f) {
+  f("Hello");
+}
+
+//Anonymous function as Higher Order function
+Function map = (Function transform) {
+  transform();
+};
+//Arrow function as Higher order function
+Function filter = (Function filter) => filter();
+
+var hello = (String name) {
+  print("Your Name is $name");
+};
+var hai = (String name) => print("Your Name is $name");
+
+void main() {
+  callback(hello);
+  callback(hai);
+  //via value
+  callback((String name) {
+    print("Your Name is $name");
+  });
+  callback((String name) => print("Your Name is $name"));
+
+  map(() => print("map transform"));
+  filter(() => print("filter "));
+}
+.......................................................................................................................................................................................................................................
 
