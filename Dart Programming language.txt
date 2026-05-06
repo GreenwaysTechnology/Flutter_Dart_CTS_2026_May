@@ -1516,5 +1516,242 @@ void main() {
   map(() => print("map transform"));
   filter(() => print("filter "));
 }
-.......................................................................................................................................................................................................................................
+.....................................................................................
 
+Higher order functions with more args,params,with nullable,Named , Named with Optional,Optional Parameters
+
+Optional:
+//Hihger order functions with named more args
+//optional parameter
+void exec(int no, Function callback) {
+  callback(no);
+}
+
+void doubleIt(int i) => print(i * i);
+
+void main() {
+  exec(10, doubleIt);
+}
+
+Optional Parameter with Non Nullable:
+......................................
+//optional parameter
+void exec(int? no, Function? callback) {
+  //callback!(no);
+  if (callback != null) {
+    callback(no);
+  }
+}
+
+void doubleIt(int i) => print(i * i);
+
+void main() {
+  exec(10, doubleIt);
+}
+........................
+
+
+Named Parameter and Higher Order function with Non Nullable:
+
+//Named Parameter
+void asyncFun({String? name = "Subramanian", Function? f}) {
+  if (f != null) f();
+}
+
+void main() {
+ asyncFun(
+      name: "Subramanian",
+      f: () {
+        print("Hello");
+      });
+}
+More complex:
+void login(
+    {String? userName = "",
+    String? password = "",
+    Function? resolve,
+    Function? reject}) {
+  if (userName == 'admin' && password == 'admin') {
+    resolve!("Login success for $userName");
+  } else {
+    reject!("Login failed,Retry");
+  }
+}
+
+void main() {
+  login(
+      userName: "admin",
+      password: "admin",
+      resolve: (String status) {
+        print(status);
+      },
+      reject: (String error) {
+        print(error);
+      });
+
+  login(
+      userName: "foo",
+      password: "bar",
+      resolve: (String status) {
+        print(status);
+      },
+      reject: (String error) {
+        print(error);
+      });
+
+}
+...................................................................................
+				Lexical scope and Lexical Closures
+...................................................................................
+
+Before Moving into lexical concept , we need to learn , nested functions.
+
+Inner functions or Nested Functions:
+.............................................................
+
+functions are within another function.
+
+counter() {
+  print("counter outter fun");
+  inc() {
+    print("inc inner function");
+  }
+  inc();
+}
+
+void main() {
+  counter();
+}
+
+Inner functions are defined within outter function is available only with in inner functions.
+
+How to call inner functions?
+
+->within outter function
+->return that function as value - Higher order function.
+
+Function like() {
+  // return () {
+  //   print("inner ");
+  // };
+  return () => print("inner ");
+}
+
+void main() {
+  Function inc = like();
+  inc.call();
+}
+
+Passing values into inner functions:
+....................................
+
+Function like() {
+  // return (int value) {
+  //   return value + 1;
+  // };
+  return (int value) => value + 1;
+}
+
+void main() {
+  counter();
+  // inc();
+  Function inc = like();
+  print(inc.call(12));
+  print(inc(33));
+}
+...
+Anonmous functions return another funcition:
+Function like = () {
+  return (int value) => value + 1;
+};
+
+void main() {
+  counter();
+  // inc();
+  Function inc = like();
+  print(inc.call(12));
+  print(inc(33));
+}
+
+Arrows functions return another functions:
+Function like = () => (int value) => value + 1;
+
+void main() {
+  counter();
+  // inc();
+  Function inc = like();
+  print(inc.call(12));
+  print(inc(33));
+}
+....................................................................................
+			 Lexical Scope
+....................................................................................
+
+The word "lexical" means static.
+There are two way of binding expressions with variables
+1.during compile or early binding -  lexical 
+2.during runtime or late binding - dynamic
+
+"Dart is lexically scoped language", meaning the variables are bound with the scope of function during compile time".
+.........................................................................................................................................................................................................				 
+											Lexical Closure(closed over)
+.................................................................................................................................................................................................................
+1.A  Closure is a function (inner function) that access to the parent scope,even after the scope has closed.
+		 "Inner functions access outter function variables which is bound to outter scope"
+2.A Closure is a function that has access to variables in its lexical scope, even when the function is used outside of the original scope.
+
+
+
+Variables Scope:
+void main() {
+  String message = "Dart";
+  showMessage() {
+    String message = "Dart is awesome";
+    print("$message");
+  }
+  showMessage();
+}
+
+Variable lookup and scope :
+
+String message = "Dart!!!";
+
+void main() {
+  String message = "Dart";
+  showMessage() {
+    String message = "Dart is awesome";
+    print("$message");
+  }
+  showMessage();
+}
+
+Here message variable is defined inner function, when the variable is accessed within that function , always local scope wins, if variable is not found it looks immediate parent, if not it looks its immediate, so on until match is found,if no match found, it willthrow error.
+
+String message = "Dart!!!";
+
+Function makeAdder(int addBy) {
+  //inner function :closure which going to access outter function variable it could be parameter
+  //or local variable
+  // return (int i) {
+  //   return addBy + i;
+  // };
+  return (int i) => addBy + i;
+}
+
+void main() {
+  String message = "Dart";
+  showMessage() {
+    //String message = "Dart is awesome";
+    print("$message");
+  }
+
+  showMessage();
+  Function adder = makeAdder(10);
+  //call inner functtion
+  print("inner calling ${adder(2)} ");
+  print("inner calling ${adder(23)} ");
+  print("inner calling ${adder(2232)} ");
+  print("inner calling ${adder(22)} ");
+  print("inner calling ${adder(52)} ");
+  print("inner calling ${adder(20)} ");
+}
