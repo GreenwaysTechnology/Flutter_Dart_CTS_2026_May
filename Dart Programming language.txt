@@ -828,7 +828,7 @@ dynamic keyword:
 ..............................
 var:
  dart infers the type at compile time
- Type becomes fixed after first assigment
+ Type becomes fixed after first assignment
 
 void main(){
   var name = "Subramnaian"; // infered as string 
@@ -1066,7 +1066,141 @@ Note:
  Positional optional parameters must go last arg only
  Positional optional parameters cant mix in between.
  All Positional args can be optional
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+..................................................................................
+			Control Flow - Loops and Branches
+..................................................................................
+Loops:
+ -for
+ -while and do while
+ -break and continue
+
+Branching:
+  if and switch
+  Exceptions- try,catch,and throw.
 
 
+Loops:
+void main() {
+  //Loops - for
+  for (int i = 0; i < 5; i++) {
+    print("i $i");
+  }
+  for (var i = 0; i < 5; i++) {
+    print("i $i");
+  }
+  // for (final i = 0; i < 5; i++) {
+  //   print("i $i");
+  // }
+  var i = 100;
+  while (i > 10) {
+    print("while $i");
+    i++;
+  }
+}
+
+Break and Continue:
+while(true){
+ if(condition) break;
+}
+...............
+
+Branches:
+1.if statements -  if , if..else, if..elseif..else
+2.if..case statement
+3.switch case statement and expressions
+
+
+if...
+main() {
+  //if...else
+  var salary = 15000;
+  if (salary > 20000) {
+    print("Good Salary");
+  } else {
+    print("You need more ");
+  }
+  //if else if
+  var marks = 80;
+  if (marks >= 90 && marks < 100) {
+    print("A +");
+  } else if (marks >= 80 && marks < 90) {
+    print("A");
+  } else {
+    print("No grade");
+  }
+}
+
+if...case: We can see later after pattern matching concept
+..
+........................................
+
+Switch:
+ Switch Statement
+ Switch Expressions
+
+main() {
+  String grade = 'A';
+  switch (grade) {
+    case 'A':
+      print("Excellent");
+      break;
+    case 'B':
+      print("Very Good");
+      break;
+    case 'C':
+      print("Good");
+      break;
+    default:
+      print("No Grade is found");
+  }
+}
+.....
+
+Switch Expressions:
+  A Switch expression produces a value based on the expression body of whichever case catches.
+
+eg:
+
+ var r = switch(x) {}
+ print(switch(x){});
+ return switch(x){};
+
+int getDayofWeek(String dayOfWeek) {
+  return switch (dayOfWeek) {
+    'Monday' => 1,
+    'Tuesday' => 2,
+    'Wednesday' => 3,
+    'Thursday' => 4,
+    'Friday' => 5,
+    'Saturday' => 6,
+    'Sunday' => 7,
+    _ => 10
+  };
+}
+
+void main() {
+  var dayOfWeek = 'Monday';
+  var result = switch (dayOfWeek) {
+    'Monday' => 1,
+    'Tuesday' => 2,
+    'Wednesday' => 3,
+    'Thursday' => 4,
+    'Friday' => 5,
+    'Saturday' => 6,
+    'Sunday' => 7,
+    _ => 10
+  };
+  print("$result");
+  print(getDayofWeek("Friday"));
+}
+
+Differences between switch statement and switch expressions:
+
+1.cases do not start with const keyword
+2.a case body must be single expression of a series of empty cases
+3.each must have body;
+4.case patterns must be separated by => instead of ":"
+5.default case is replaced by "_" 
 
 
