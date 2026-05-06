@@ -1755,3 +1755,212 @@ void main() {
   print("inner calling ${adder(52)} ");
   print("inner calling ${adder(20)} ");
 }
+.....................................................................................
+			Object oriented Programming in Dart
+.....................................................................................
+Dart is fundamentally object oriented language, in dart every thing is object.
+
+OO features:
+1.Abstraction
+2.Encaspulation
+3.Typing
+4.Hierachy
+5.Modularity
+6.Concurrency
+7.Persistency
+
+1.Abstraction
+  Abstraction is implemented via classes.
+
+class declaration
+variables and methods- instance variables and static variables
+methods
+constructors
+object creation
+
+
+simple class declaration and object creation:
+class User {}
+
+void main() {
+  //object creation
+  //User is type ; user1 is reference variable ; new is keyword ; User() is constructor call
+  User user1 = new User();
+  var user2 = new User();
+  //new keyword is not necessary ; not recommend
+  User user3 = User();
+}
+
+Declare instance variables and nullable properites;
+
+class User {
+  //instance variables
+  int? id;
+  String? name;
+  int? age;
+  String? city;
+}
+
+main() {
+  User user = User();
+  //access variables
+  print("id ${user.id}");
+  print("name ${user.name}");
+  print("age ${user.age}");
+  print("city ${user.city}");
+
+}
+
+id null
+name null
+age null
+city null
+.....................................
+
+How to initalize the instance variables.
+
+1.within class 
+2.outside class; after object creation
+3.during object creation; constructors
+
+
+
+1.within class
+class User {
+  //instance variables
+  int? id = 1;
+  String? name = "Subramnaian";
+  int? age = 43;
+  String? city = "Coimbatore";
+}
+
+main() {
+  User user = User();
+  //access variables
+  print("id ${user.id}");
+  print("name ${user.name}");
+  print("age ${user.age}");
+  print("city ${user.city}");
+}
+
+2.outside class: after object creation
+class User {
+  //instance variables
+  int? id = 1;
+  String? name = "Subramnaian";
+  int? age = 43;
+  String? city = "Coimbatore";
+}
+
+main() {
+  User user = User();
+  //after object creation using instance variables
+  user.id = 100;
+  user.name = "John";
+  user.age = 34;
+  user.city = "Coimbatore";
+  //access variables
+  print("id ${user.id}");
+  print("name ${user.name}");
+  print("age ${user.age}");
+  print("city ${user.city}");
+}
+....................................................................................
+				 Methods
+...................................................................................
+if functions are declared within class called methods, all function syntaxs are valid.
+
+Types of methods
+
+1.instance methods
+2.static methods 
+
+1.biz methods
+2.state initalizer - setter and getter
+
+
+biz instance methods
+biz static methods.
+
+
+
+biz instance methods:
+
+class UserAPI {
+  // String findAll() {
+  //   return "findAll";
+  // }
+  String findAll() => "findAll";
+
+  String save(String? name) => "$name";
+}
+
+void main() {
+  UserAPI userAPI = UserAPI();
+  print(userAPI.findAll());
+  print(userAPI.save("Subramanian"));
+}
+.........
+Setters and Getters are used to initalize the state(instance) variables.
+
+By default dart uses internally setters and getters, you dont need to use. but some times if i want to use setters and getters for some customization.
+
+Setters = > to set value
+Getters = > to read value.
+
+Getters:
+ return_type get property_name {
+
+ }
+class User {
+  String? firstName;
+  String? lastName;
+
+  //getter
+  String get fullName => "$firstName $lastName";
+}
+main(){
+  User user = User();
+  user.firstName ="Subramanian";
+  user.lastName="Murugan";
+  //call getter
+  print(user.fullName);
+
+}
+
+setter:
+
+void set property_name(value) {
+
+}
+
+"this" keyword used to refer object instance variables with methods.
+
+class User {
+  //String? fname;
+  String? _firstName;
+  String? lastName;
+
+  //setter
+  set firstName(String firstName) {
+    print("setter is called");
+    //this keyword is implicit
+    // this._firstName = firstName;
+    _firstName = _firstName;
+  }
+
+  //getter
+  String get fullName => "$_firstName $lastName";
+}
+
+main() {
+  User user = User();
+  user.firstName = "Subramanian";
+  user.lastName = "Murugan";
+  //call getter
+  print(user.fullName);
+}
+
+"_" notation is used to declare variables are "private" variables
+
+...............................................................................
