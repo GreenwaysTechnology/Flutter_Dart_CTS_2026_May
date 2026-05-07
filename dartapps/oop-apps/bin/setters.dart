@@ -14,6 +14,8 @@ class User {
   //     return _firstName;
   // }
   String get firstName => "${_firstName?.toUpperCase()}";
+
+
 }
 
 void main() {
@@ -21,4 +23,5 @@ void main() {
   user.firstName = "Subramaian"; //setter
 
   print("First Name ${user.firstName}");
+
 }

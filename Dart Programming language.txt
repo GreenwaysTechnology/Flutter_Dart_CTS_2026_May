@@ -1963,4 +1963,371 @@ main() {
 
 "_" notation is used to declare variables are "private" variables
 
+..................................................................................................................................................................................................................................
+
 ...............................................................................
+static variables and methods:
+class Message {
+  static String warning = "Warning";
+  static String success = "Success";
+
+  static void inc() {
+    print("page count");
+  }
+}
+
+void main() {
+  print(Message.success);
+  print(Message.warning);
+  Message.inc();
+}
+...................................................................................
+			    Constructors
+...................................................................................
+
+Constructors are special methods used to initalize the objects.
+
+Constructor call basic syntax;
+  new User();
+  User();
+
+
+How to declare constructors?
+
+dart provides many ways /types of constructors
+
+1.Simple constructor
+  Should match ClassName.
+
+Using constructors we can initalize the variables.
+
+class User {
+  //instance variables
+  int? id;
+  String? name;
+  int? age;
+  String? city;
+}
+
+main() {
+  User user = User();
+  //access variables
+  print("id ${user.id}");
+  print("name ${user.name}");
+  print("age ${user.age}");
+  print("city ${user.city}");
+}
+
+Here there is no constructor, means there is default constructor is supplied.
+
+Argument Constructors:
+......................
+1.Optional args and positional constructors
+2.Named args
+
+
+1.Optional args and positional constructor
+
+class User {
+  //instance variables
+  int? id;
+  String? name;
+  int? age;
+  String? city;
+
+  User(int id, String name, int age, String city) {
+    // this.id = id;
+    // this.name = name;
+    // this.age = age;
+    // this.city = city;
+    this.id = id;
+    this.name = name;
+    this.age = age;
+    this.city = city;
+  }
+}
+
+main() {
+  User user = User(1, "Subramanian", 43, "Coimbatore");
+  //access variables
+  print("id ${user.id}");
+  print("name ${user.name}");
+  print("age ${user.age}");
+  print("city ${user.city}");
+}
+
+Short cut: you dont need to initalize the variables within constructors 
+class User {
+  //instance variables
+  int? id;
+  String? name;
+  int? age;
+  String? city;
+
+  User(this.id, this.name, this.age, this.city);
+}
+
+main() {
+  User user = User(1, "Subramanian", 43, "Coimbatore");
+  //access variables
+  print("id ${user.id}");
+  print("name ${user.name}");
+  print("age ${user.age}");
+  print("city ${user.city}");
+}
+..........................................
+
+Named and Default values:
+.........................
+class User {
+  //instance variables
+  int? id;
+  String? name;
+  int? age;
+  String? city;
+  //Named constructors with default value
+  User({this.id = 0, this.name = "name", this.age = 18, this.city = "city"});
+}
+
+main() {
+  User user = User(id: 1, name: "Subramanian", age: 43, city: "Coimbatore");
+
+  //access variables
+  print("id ${user.id}");
+  print("name ${user.name}");
+  print("age ${user.age}");
+  print("city ${user.city}");
+
+  user = User();
+  print("id ${user.id}");
+  print("name ${user.name}");
+  print("age ${user.age}");
+  print("city ${user.city}");
+
+  user = User(id: 1, name: 'Raj', age: 33);
+  print("id ${user.id}");
+  print("name ${user.name}");
+  print("age ${user.age}");
+  print("city ${user.city}");
+}
+
+Note:
+ One SIngle named with default value constructors are used to initalize the object in no of ways - Constructor overloading.
+..................................................................
+
+Named Constructors:
+
+class User {
+  //instance variables
+  int? id;
+  String? name;
+  int? age;
+  String? city;
+  //Named constructors with default value
+  User({this.id = 0, this.name = "name", this.age = 18, this.city = "city"});
+  User(){}
+}
+
+Here you can see that there is two constructors, which is not allowed in dart.
+multiple constructors not allowed.
+
+What if i want multiple constructors, thats where "Named Constructors are used"
+
+class User {
+  //instance variables
+  int? id;
+  String? name;
+  int? age;
+  String? city;
+
+  // Named parameter constructors with default value
+  User({this.id = 0, this.name = "name", this.age = 18, this.city = "city"});
+
+  //Named constructors
+  User.fromJson(
+      {this.id = 0, this.name = "name", this.age = 18, this.city = "city"});
+
+  //Named Constructors without any args
+  User.createUser()
+      : id = 1,
+        name = "Ram",
+        age = 18,
+        city = "Chennai";
+}
+
+main() {
+  User user = User(id: 1, name: "Subramanian", age: 43, city: "Coimbatore");
+
+  //access variables
+  print("id ${user.id}");
+  print("name ${user.name}");
+  print("age ${user.age}");
+  print("city ${user.city}");
+
+  user = User();
+  print("id ${user.id}");
+  print("name ${user.name}");
+  print("age ${user.age}");
+  print("city ${user.city}");
+
+  user = User(id: 1, name: 'Raj', age: 33);
+  print("id ${user.id}");
+  print("name ${user.name}");
+  print("age ${user.age}");
+  print("city ${user.city}");
+
+  user = User.fromJson(id: 1, name: 'Raj', age: 33);
+  print("id ${user.id}");
+  print("name ${user.name}");
+  print("age ${user.age}");
+  print("city ${user.city}");
+
+  user = User.createUser();
+  print("id ${user.id}");
+  print("name ${user.name}");
+  print("age ${user.age}");
+  print("city ${user.city}");
+}
+...................................................................................
+				Constant Constructors
+...................................................................................
+
+constant constructors are constructors that creates constant object.
+Constant object , whose value cant be changed.
+
+Rules:
+1.All properties of the class must be final
+2.it does not have any body
+3.only class containing const constructor is initalized using the const keyword
+4.when we create object we can use const keyword to improve performance.
+
+class Point {
+  final int x;
+  final int y;
+
+  //constant constructors
+  const Point(this.x, this.y);
+}
+
+//
+main() {
+  Point point = Point(1, 3);
+  print("X ${point.x} Y ${point.y}");
+  //point.x =10;
+}
+.....................................................................................
+
+const infront of object creation:
+
+Point point = const Point(1, 3);
+
+const keyword is used infront of constructor call, to improve performance, that means objects are immutable.
+
+once the constructor is called with same parameter no of times, which does not create object every time : immutablity.
+
+
+class Point {
+  final int x;
+  final int y;
+
+  //constant constructors
+  const Point(this.x, this.y);
+}
+
+//
+main() {
+  //without immutable
+  Point p1 = Point(1, 3);
+  Point p2 = Point(1, 3);
+  //check p1 and p2 both points one object or many objects
+  print("p1 hashcode ${p1.hashCode} ");
+  print("p2 hashcode ${p2.hashCode} ");
+
+}
+output:
+p1 hashcode 994922061 
+p2 hashcode 384700281 
+
+here p1 and p2 are pointing two different objects.
+
+what if i want to create only one object , irrespect of no of constructors.
+
+
+  Point p3 = const Point(1, 3);
+  Point p4 = const Point(1, 3);
+  //check p1 and p2 both points one object or many objects
+  print("p3 hashcode ${p3.hashCode} ");
+  print("p4 hashcode ${p4.hashCode} ");
+
+p3 hashcode 28326995 
+p4 hashcode 28326995 
+
+Here both object points same hashcode, meaning that only one instance is available.
+
+class Point {
+  final int x;
+  final int y;
+
+  //constant constructors
+  const Point(this.x, this.y);
+}
+
+//
+main() {
+  Point point = Point(1, 3);
+  print("X ${point.x} Y ${point.y}");
+  //point.x =10;
+
+  //without immutable
+  Point p1 = Point(1, 3);
+  Point p2 = Point(1, 3);
+  //check p1 and p2 both points one object or many objects
+  print("p1 hashcode ${p1.hashCode} ");
+  print("p2 hashcode ${p2.hashCode} ");
+
+  //immutable
+  Point p3 = const Point(1, 3);
+  Point p4 = const Point(1, 3);
+  //check p1 and p2 both points one object or many objects
+  print("p3 hashcode ${p3.hashCode} ");
+  print("p4 hashcode ${p4.hashCode} ");
+}
+
+X 1 Y 3
+p1 hashcode 710306973 
+p2 hashcode 1006090697 
+p3 hashcode 497022349 
+p4 hashcode 497022349 
+
+const constructors with named parameters with default value:
+
+class Point {
+  final int? x;
+  final int? y;
+
+  //constant constructors
+  //const Point(this.x, this.y);
+  const Point({this.x = 0, this.y = 0});
+}
+
+//
+main() {
+  Point point = Point(x: 1, y: 3);
+  print("X ${point.x} Y ${point.y}");
+  //point.x =10;
+
+  //without immutable
+  Point p1 = Point(x: 1, y: 3);
+  Point p2 = Point(x: 1, y: 3);
+  //check p1 and p2 both points one object or many objects
+  print("p1 hashcode ${p1.hashCode} ");
+  print("p2 hashcode ${p2.hashCode} ");
+
+  //immutable
+  Point p3 = const Point(x: 1, y: 3);
+  Point p4 = const Point(x: 1, y: 3);
+  //check p1 and p2 both points one object or many objects
+  print("p3 hashcode ${p3.hashCode} ");
+  print("p4 hashcode ${p4.hashCode} ");
+}
+
