@@ -2331,3 +2331,354 @@ main() {
   print("p4 hashcode ${p4.hashCode} ");
 }
 
+	
+..........................................................................................................................................................................................................................................
+			 Hierachy : IS-A and Has-A
+
+IS-A: Inheritance
+..................
+ Share common code across the multiple classes.
+
+Implementation:
+1.concrete class inheritance
+2.Interface based inheritance
+3.Abstract class based inheritance
+4.mixin based inheritance.
+
+1.concrete class inheritance
+ 
+extends keyword to connect base and child class.
+class Person {
+  String? name;
+  int? age;
+
+  Person(this.name, this.age);
+}
+
+class Student extends Person {
+  //child property
+  String? schoolName;
+
+  Student({String? name = "name", int? age = 5, this.schoolName = "school"})
+      : super(name, age);
+}
+
+void main() {
+  Student student = Student();
+  print("name ${student.name}");
+  print("age ${student.age}");
+  print("schoolName ${student.schoolName}");
+}
+
+
+//parent class
+class Person {
+  String? name;
+  int? age;
+
+  Person(this.name, this.age);
+}
+
+//child class
+class Student extends Person {
+  //Child Property
+  String? schoolName;
+
+  //Student(String name, int age, this.schoolName) : super(name, age);
+  Student(String super.name, int super.age, this.schoolName);
+}
+
+void main() {
+  Student student = Student("Subramanian Murugan", 45, "SSVM WORLD School");
+  print("Name ${student.name}");
+  print("Age ${student.age}");
+  print("School Name ${student.schoolName}");
+}
+
+....................................................................................
+				Polymorphism and inheritance
+....................................................................................
+
+
+Super class methods inside child class;
+class Animal {
+  eat() {
+    print("animal eats");
+  }
+}
+
+class Dog extends Animal {
+  bark() {
+    print("dog is barking");
+  }
+}
+
+void main() {
+   Dog dog = Dog();
+   dog.eat();
+   dog.bark();
+}
+
+Overriding:
+class Animal {
+  void eat() {
+    print("animal eats");
+  }
+}
+
+class Dog extends Animal {
+  bark() {
+    print("dog is barking");
+  }
+
+  @override
+  void eat() {
+    print("dog eats");
+  }
+}
+
+void main() {
+  Dog dog = Dog();
+  dog.eat();
+  dog.bark();
+}
+
+Program to Super type:
+
+"The type of the variable can be same type or its super type"
+
+Type and implementation is same : Program to concrete type
+ Dog dog = Dog();
+
+"Type of variable here is super type: Program to super type"
+Animal animal = Dog();
+
+As per oo, the compiler during compile time ,it checkes "the type"
+
+  Animal animal = Dog();
+  animal.eat();
+
+ here eat method belongs to Animal type, so that compiler does not give any error
+
+  Animal animal = Dog();
+  animal.eat();
+  animal.bark();
+
+ here "bark" method will give compile time error, because compiler always looks type, bark methods does not belong to Animal type.
+
+         "During compile time , the compiler checks the left side(Type)"	
+	 "During runtime ,the compiler checks right side(object)"
+
+What if i want to call method on child object using parent reference?
+
+ "Type casting" :
+
+class Animal {
+  void eat() {
+    print("animal eats");
+  }
+}
+
+class Dog extends Animal {
+  bark() {
+    print("dog is barking");
+  }
+
+  @override
+  void eat() {
+    print("dog eats");
+  }
+}
+
+void main() {
+  Dog dog = Dog();
+  dog.eat();
+  dog.bark();
+
+  //
+  Animal animal = Dog();
+  animal.eat();
+  //animal.bark();
+  //here we convert animal into dog.
+  Dog tmpDog = animal as Dog;
+  tmpDog.bark();
+}
+.................
+
+How to call base class methods using super keyword.
+class Animal {
+  void eat() {
+    print("animal eats");
+  }
+}
+
+class Dog extends Animal {
+  bark() {
+    print("dog is barking");
+  }
+
+  @override
+  void eat() {
+    print("dog eats");
+    super.eat();
+  }
+}
+
+void main() {
+  Dog dog = Dog();
+  dog.eat();
+  dog.bark();
+
+  //
+  Animal animal = Dog();
+  animal.eat();
+  //animal.bark();
+  //here we convert animal into dog.
+  Dog tmpDog = animal as Dog;
+  tmpDog.bark();
+}
+................................
+
+2.Interface based inheritance
+
+An interface means common behaviour across multiple different class hierachies.
+
+Declaring interface 
+ -> in dart no special interface keyword, rather we use same class
+implementing interface	 
+ -> instead of using extends keyword ,we use implements keyword .
+ 
+
+class Animal {
+  void eat() {
+     print("Animal eat");
+  }
+}
+class Dog implements Animal {
+  @override
+  void eat() {
+    print("Dog eat");
+  }
+
+}
+void main(){
+  Animal dog = Dog();
+  dog.eat();
+}
+
+What if i want only declare methods in parent class not ready to implement.
+
+Abstract classes
+
+abstract class Animal {
+  void eat();
+  void canWalk();
+  void canRun();
+}
+
+class Dog implements Animal {
+  @override
+  void eat() {
+    print("Dog eat");
+  }
+
+  @override
+  void canRun() {
+    print("Dog can run");
+  }
+
+  @override
+  void canWalk() {
+    // TODO: implement canWalk
+    print("Dog can walk");
+  }
+}
+
+void main() {
+  Animal dog = Dog();
+  dog.eat();
+  dog.canWalk();
+  dog.canRun();
+}
+..................
+
+Implementing multiple super class with single child class
+
+abstract class Animal {
+  void eat();
+}
+
+abstract class Walking {
+  void canWalk();
+}
+
+abstract class Running {
+  void canRun();
+}
+
+class Dog implements Animal, Walking, Running {
+  @override
+  void eat() {
+    print("Dog eat");
+  }
+
+  @override
+  void canRun() {
+    print("Dog can run");
+  }
+
+  @override
+  void canWalk() {
+    // TODO: implement canWalk
+    print("Dog can walk");
+  }
+}
+
+void main() {
+  var dog = Dog();
+  dog.eat();
+  dog.canWalk();
+  dog.canRun();
+}
+..................................................................................
+				Mixins
+...................................................................................
+
+Mixins are similar to classes and abstract classes but it looks exactly like interfaces in other languages.
+
+mixins are way of resuing code in multiple classes. mixins are declared using the keyword mixin followed by mixin name.
+mixin can be inherited "with and on " keywords
+
+Rules:
+1.mixin cant be instiated.
+2.Mixin has no constructor and cant be extended
+3.you can use multiple mixins on single class.
+
+
+mixin Mixin1{}
+mixin Mixin2{}
+mixin Mixin3{}
+mixin Mixin4{}
+
+class A with Mixin1,Mixin2,Mixin3,Mixin4{}
+
+
+mixin Electric {
+  void electric() {
+    print("Electric");
+  }
+}
+mixin Petrol {
+  void petrol() {
+    print("Petrol");
+  }
+}
+
+class Car with Electric, Petrol {}
+
+void main() {
+  var car = Car();
+  car.electric();
+  car.petrol();
+}
+
