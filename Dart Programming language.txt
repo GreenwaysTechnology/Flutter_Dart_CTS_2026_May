@@ -3303,8 +3303,304 @@ void main() {
     print(e);
   }
 }
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+												libs and packages
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+Dart packages are reusable libraries that help you add functionality to your Dart or Flutter apps without writing everything from scratch. 
+
+They’re a core part of the Dart ecosystem.
+
+ lib Folder
+
+`lib/` is a special folder  inside a package.
+ It contains the **reusable Dart source code** that can be imported by other files/packages.
+Every dart application itself is package.
+
+my-app/lib
+calculator.dart
+int add(int a, int b) {
+  return a + b;
+}
+
+main/calcmain.dart
+import "package:my_app/calculator.dart";
+
+void main() {
+  print(add(10, 10));
+}
+
+lib/repo/UserRepository.dart
+import "package:my_app/User.dart";
+
+class Userrepository {
+
+  List<User> getUsers() {
+    return [
+      User(name: "John", city: "New York"),
+      User(name: "Jane", city: "London"),
+      User(name: "Bob", city: "Paris"),
+      User(name: "Alice", city: "Tokyo"),
+    ];
+  }
+}
+
+lib/User.dart
+class User {
+  String? name;
+  String? city;
+
+  User({this.name = "", this.city = ""});
+}
+
+lib/UserService.dart
+import "package:my_app/User.dart";
+import "package:my_app/repo/UserRepository.dart";
+
+class Userservice {
+  Userrepository userrepository;
+
+  Userservice({required this.userrepository});
+
+  List<User> getUsers() {
+    return userrepository.getUsers();
+  }
+}
+
+Private methods:
+  //private methods = only accessible within the class and not script file
+class Authservice {
+  String _auth() {
+    return "Auth";
+  }
+
+  String login() {
+    return _auth();
+  }
+}
 
 
+import 'package:my_app/AuthService.dart';
+
+void main(){
+  Authservice authservice = Authservice();
+  //authservice._auth();
+  authservice.login();
+}
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+									 Types of Packages
+
+1.In Built packages - from dart language
+2.Custom packages  - our own packages and use that package inside our app or you can distribute to others
+3.Third party packages - packages provided by thrid parties
+
+Third party packages:
+..................................
+Where to find Dart packages
+
+The main repository is:
+
+* pub.dev — the official package registry for Dart and Flutter
+
+You can search for packages, read documentation, and see popularity, likes, and maintenance status there.
+
+ Types of Dart packages
+
+1. **Pure Dart packages**
+
+   * Work in any Dart environment (CLI, server, Flutter)
+   * Example: `http`, `intl`
+
+2. **Flutter packages**
+
+   * Built specifically for Flutter apps
+   * May include UI widgets
+   * Example: `provider`, `flutter_bloc`
+
+3. **Plugin packages**
+
+   * Use platform-specific code (Android/iOS)
+   * Example: `camera`, `geolocator`
+
+Popular Dart/Flutter packages
+
+Here are some widely used ones:
+
+* `http` → for making API requests
+* `dio` → advanced HTTP client
+* `provider` → state management
+* `riverpod` → modern state management
+* `flutter_bloc` → reactive state management
+* `intl` → internationalization and formatting
+* `shared_preferences` → local key-value storage
+* `sqflite` → SQLite database
+* `firebase_core` → Firebase integration
+
+eg:
+G:\CTS\2026\dartapps\my_app>dart pub add http
+Resolving dependencies...
+Downloading packages...
++ http 1.6.0
+Changed 1 dependency!
+
+pubspc.yaml
+name: my_app
+description: A sample command-line application.
+version: 1.0.0
+# repository: https://github.com/my_org/my_repo
+
+environment:
+  sdk: ^3.11.5
+
+# Add regular dependencies here.
+dependencies:
+  http: ^1.6.0
+  path: ^1.9.0
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.6
+
+code:
+main/httppackage.dart
+
+import "package:http/http.dart" as http;
+
+void fetchData() async {
+  var response = await http.get(
+    Uri.parse("https://jsonplaceholder.typicode.com/posts"),
+  );
+  print(response.body);
+}
+
+void main() {
+  fetchData();
+}
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+									Creating custom package and publish into pub.dev
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+Steps :
+
+1.create package.
+
+dart create -t package calcuator_utils
+Creating calcuator_utils using template package...
+
+  .gitignore
+  analysis_options.yaml
+  CHANGELOG.md
+  pubspec.yaml
+  README.md
+  example\calcuator_utils_example.dart
+  lib\calcuator_utils.dart
+  lib\src\calcuator_utils_base.dart
+  test\calcuator_utils_test.dart
+
+Running pub get...
+  Resolving dependencies...
+  Downloading packages...
+  Changed 48 dependencies!
+
+Created project calcuator_utils in calcuator_utils! In order to get started, run the following commands:
+
+  cd calcuator_utils
+  dart run example/calcuator_utils_example.dart
+
+
+Testing whether code is working or not
+
+ G:\CTS\2026\dartapps\calcuator_utils>dart run example/calcuator_utils_example.dart
+
+Run unit testing before publishing
+G:\CTS\2026\dartapps\calcuator_utils>dart test
+
+dart pub publish --dry-run
+Resolving dependencies...
+Downloading packages...
+Got dependencies!
+Publishing calcuator_utils 1.0.0 to https://pub.dev:
+|-- CHANGELOG.md (<1 KB)
+|-- LICENSE (<1 KB)
+|-- README.md (<1 KB)
+|-- analysis_options.yaml (1 KB)
+|-- example
+|   '-- calcuator_utils_example.dart (<1 KB)
+|-- lib
+|   |-- calcuator_utils.dart (<1 KB)
+|   '-- src
+|       '-- calcuator_utils_base.dart (<1 KB)
+|-- pubspec.yaml (<1 KB)
+'-- test
+    '-- calcuator_utils_test.dart (<1 KB)
+
+Total compressed archive size: 1 KB.
+Validating package...
+
+After running this command  you will get message that LICENSE file must be added in the root dir of your application.
+
+G:\CTS\2026\dartapps\calcuator_utils>LICENSE
+MIT LICENSE
+Copyright (c) 2026 Subramanian Murugan
+
+Permission is hereby Granted , free of charge
+
+
+
+G:\CTS\2026\dartapps\calcuator_utils>dart pub login
+Pub needs your authorization to upload packages on your behalf.
+In a web browser, go to https://accounts.google.com/o/oauth2/auth?access_type=offline&approval_prompt=force&response_type=code&client_id=818368855108-8grd2eg9tj9f38os6f1urbcvsq399u8n.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A62072&code_challenge=-Uc6UisXBs_xqN8xmwp97e2LmVZwhi5db4XBqaLtEUg&code_challenge_method=S256&scope=openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email
+Then click "Allow access".
+
+dart pub login
+You are already logged in as <sasubramanian.md@gmail.com> M Subramanian
+
+dart pub publish
+
+Resolving dependencies...
+Downloading packages...
+Got dependencies!
+Publishing calcuator_utils 1.0.0 to https://pub.dev:
+|-- CHANGELOG.md (<1 KB)
+|-- LICENSE (<1 KB)
+|-- README.md (1 KB)
+|-- analysis_options.yaml (1 KB)
+|-- example
+|   '-- calcuator_utils_example.dart (<1 KB)
+|-- lib
+|   |-- calcuator_utils.dart (<1 KB)
+|   '-- src
+|       '-- calcuator_utils_base.dart (<1 KB)
+|-- pubspec.yaml (<1 KB)
+'-- test
+    '-- calcuator_utils_test.dart (<1 KB)
+
+Total compressed archive size: 2 KB.
+Validating package...
+Package validation found the following potential issue:
+* It's strongly recommended to include a "homepage" or "repository" field in your pubspec.yaml
+
+Publishing is forever; packages cannot be unpublished.
+Policy details are available at https://pub.dev/policy
+
+Package has 1 warning.. Do you want to publish calcuator_utils 1.0.0 to https://pub.dev (y/N)? y
+Message from server: Successfully uploaded https://pub.dev/packages/calcuator_utils version 1.0.0, it may take up-to 10 minutes before the new version is available.
+
+
+How to download published packages into your application?
+
+https://pub.dev/my-packages - this is your pub.dev  home page, where you find published packages.
+
+G:\CTS\2026\dartapps\my_app>dart pub add calcuator_utils
+
+import 'package:calcuator_utils/calcuator_utils.dart';
+
+
+void main(){
+  var awesome = Awesome();
+  print('awesome: ${awesome.isAwesome}');
+}
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
 
 

@@ -1,0 +1,15 @@
+name: calcuator_utils
+description: This is optional for your own personal packages, but if you intend to publish your package you must provide a description, which should be in English. The description should be relatively short—60 to 180 characters—and tell a casual reader what they might want to know about your package.
+version: 1.0.1
+# repository: https://github.com/my_org/my_repo
+
+environment:
+  sdk: ^3.11.5
+
+# Add regular dependencies here.
+dependencies:
+  # path: ^1.9.0
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.6
