@@ -3188,6 +3188,121 @@ void main() {
   final (lat, lng) = getMyLocation();
   print("lat=$lat lng=$lng");
 }
+.....................................................................................
+			 Exception Handling
+.....................................................................................
+Dart language can throw and catch exceptions.
+Exception provides to handle runtime errors.
+Dart Provides two base classes to handle errors
+
+1.Exception
+2.Error
+
+Exception is base class For all exceptions 
+
+Common Sub Classes:
+1.TimeoutException
+2.IOException
+
+Common Sub class for Errors:
+1.StackOverFlowError
+2.TypeError
+3.ArgumentError
+
+Keywords to handle Exceptions:
+
+1.throw 
+2.catch
+3.try
+4.on
+5.finally
+
+..
+Risky code always goes inside try block...
+Risky code means that code may or may not cause runtime error. if error occurs how to handle that.
+catch block will have error handling code like reporting errors in console or sending to error reporting softwares...
+
+Use case : Handling Generic Exception
+void main() {
+  try {
+     int result = 12 ~/ 0;
+     print("result $result");
+  } catch (e) {
+    print("Handing error");
+    print(e);
+  }
+}
+
+Use case 2:Handling particular Exception
+  try {
+    int result = 12 ~/ 0;
+    print("result $result");
+  } on IntegerDivisionByZeroException {
+    print("Handing error");
+  }
+
+Use case 3: Handling two generic exceptions;
+try {
+     int result = 12 ~/ 0;
+     print("result $result");
+  } catch (e,s) {
+    print("Handing error");
+    print(e);
+  }
+
+Use case 4: handling finally
+void main() {
+  //Here catch block will handle any type of Exception
+  // try {
+  //    int result = 12 ~/ 0;
+  //    print("result $result");
+  // } catch (e) {
+  //   print("Handing error");
+  //   print(e);
+  // }
+  //if i want to handle particular exception
+  // try {
+  //   int result = 12 ~/ 0;
+  //   print("result $result");
+  // } on IntegerDivisionByZeroException {
+  //   print("Handing error");
+  // }
+  //Multiple generic excepiton
+  try {
+    int result = 12 ~/ 0;
+    print("result $result");
+  } catch (e, s) {
+    print("Handing error");
+    print(e);
+  } finally {
+    print("finally");
+  }
+}
+
+Custom Exceptions:
+..................
+ We can create ourown biz exceptions.
+class DepositException implements Exception {
+  @override
+  String toString() {
+    // TODO: implement toString
+    return "Amount cannot be negative";
+  }
+}
+
+void deposit(int amount) {
+  if (amount <= 0) {
+    throw DepositException();
+  }
+}
+
+void main() {
+  try {
+    deposit(-500);
+  } catch (e) {
+    print(e);
+  }
+}
 
 
 
