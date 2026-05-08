@@ -2331,7 +2331,6 @@ main() {
   print("p4 hashcode ${p4.hashCode} ");
 }
 
-	
 ..........................................................................................................................................................................................................................................
 			 Hierachy : IS-A and Has-A
 
@@ -2838,3 +2837,372 @@ void main() {
   );
   app.render();
 }
+
+.....................................................................................
+				Generics and Collections
+.....................................................................................
+
+if you container objects and methods, which may take any type(Object) if you want restrict to particular type , we can use generics.
+
+Use i want to create a class to accept a specific type like int,double.
+
+Without Generics:
+//Create a class which accepts only Integer
+class IntData {
+  int? data;
+
+  IntData(this.data);
+}
+//Create a class which accepts only Double
+
+class DoubleData {
+  double? data;
+
+  DoubleData(this.data);
+}
+
+void main() {
+  IntData intData = IntData(10);
+  DoubleData doubleData = DoubleData(34.56);
+}
+
+In this code we need to duplicate classes for every type....
+
+How to create a class which accept the data what i want?
+  "The soultion is Generic" class
+
+Generic class Syntax:
+
+class ClassName<T> {
+
+}
+T - means type. 
+
+//Create a class which accepts only Integer
+class Data<T> {
+  T? data;
+
+  Data(this.data);
+}
+
+void main() {
+  //Data intData = Data<int>(10.34);
+  Data intData = Data<int>(10);
+}
+
+Conventions in Generics:
+
+T - Type
+e - Element
+K-  Key
+V - Value
+
+//Create a class which accepts only Integer
+class Data<T> {
+  T? data;
+
+  Data(this.data);
+}
+
+class Map<K, V> {
+  K? Key;
+  V? Value;
+
+  Map(this.Key, this.Value);
+}
+
+void main() {
+  //Data intData = Data<int>(10.34);
+  Data intData = Data<int>(10);
+  Map map = Map<int, String>(1, "Value");
+}
+
+Generic Methods:
+...............
+//Create a class which accepts only Integer
+
+class Adder {
+  T add<T, E>(T value1) {
+    return value1;
+  }
+}
+
+void main() {
+  //Data intData = Data<int>(10.34);
+  Data intData = Data<int>(10);
+  Map map = Map<int, String>(1, "Value");
+
+  Adder adder = Adder();
+  adder.add<int, int>(10);
+}
+.......................................................................
+
+I want to create generic class which accept the particular family of type.
+
+i want to create generic class which accepts only numbers(int,double...)
+
+//Create a class which accepts only Integer
+class Data<T> {
+  T? data;
+
+  Data(this.data);
+}
+
+class Map<K, V> {
+  K? Key;
+  V? Value;
+
+  Map(this.Key, this.Value);
+}
+
+class Adder {
+  T add<T, E>(T value1) {
+    return value1;
+  }
+}
+
+//Generic with Restrictions
+class MyNumber<T extends num> {
+  T data;
+
+  MyNumber(this.data);
+
+  num add<T extends num>(T value1, T value2) {
+    return value1 + value2;
+  }
+}
+
+void main() {
+  //Data intData = Data<int>(10.34);
+  Data intData = Data<int>(10);
+  Map map = Map<int, String>(1, "Value");
+
+  Adder adder = Adder();
+  adder.add<int, int>(10);
+
+  // MyNumber<String>("Helllo");
+  // MyNumber<bool>(true);
+  MyNumber(10);
+  MyNumber(20.45);
+  // MyNumber(true);
+  MyNumber myNumber = MyNumber(0);
+  print(myNumber.add(13, 10));
+}
+...................................................................................................................................................................................................................................
+										 Object - Super class
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+In java java.lang.Object is Super class , Similarly in dart also we have super class "Object"
+
+
+class Person {
+   String? name;
+   String? city;
+
+   @override
+  String toString() {
+    // TODO: implement toString
+    return 'Person{name: $name, city: $city}';
+  }
+}
+void main(){
+  Person person = Person();
+  person.name = "John";
+  person.city ="New york";
+  print(person.hashCode);
+  print(person.toString());
+}
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+.....................................................................................	
+				 Collections
+
+Dart uses different types of collections
+All Collections powered with Generics
+
+0.Array - In dart there is no separate Array type like java ,c++ c#
+
+1.List
+2.Set 
+3.Map
+
+List:
+ List is similar to arrays in other programming languages
+ List is dynamic and object
+
+class Product {
+  int productId;
+  String productName;
+  double price;
+
+  Product(this.productId, this.productName, this.price);
+}
+
+void main() {
+  //immutable list
+  const List<int> numList = [1, 2, 3, 4];
+  for (int value in numList) {
+    print(value);
+  }
+  numList.forEach((element) {
+    print(element);
+  });
+  List<Product> products = [
+    Product(1, "p1", 1334.0),
+    Product(2, "p2", 34412.0),
+    Product(3, "p3", 12121.0)
+  ];
+  for (Product product in products) {
+    print("${product.productId} ${product.productName} ${product.price}");
+  }
+}
+.....................................................................................
+Set:
+ => Set and List is same but Set does not allow duplicates...
+
+void main() {
+  Set<String> fruits = {"Apple", "Apple", "Orange", "Mango"};
+  for (String fruit in fruits) {
+    print(fruit);
+  }
+}
+
+class Product {
+  final int? id;
+  final String? name;
+  final double? price;
+
+  const Product({this.id = 0, this.name = "Product-0", this.price = 0});
+
+  @override
+  String toString() {
+     return 'Product{id: $id, name: $name, price: $price}';
+  }
+  @override
+  bool operator ==(Object other) {
+    //full property comparsion
+     return other is Product && other.id == id && other.name == name && other.price == price;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
+
+}
+void main(){
+  Set<Product> products = {
+    Product(id: 1, name: "Product-1", price: 10.0),
+    Product(id: 2, name: "Product-2", price: 20.0),
+    Product(id: 3, name: "Product-3", price: 30.0),
+    Product(id: 1, name: "Product-1", price: 10.0),
+    Product(id: 2, name: "Product-2", price: 20.0),
+
+  };
+  print(products.toString());
+}
+....................
+
+Map:
+  => Key value pair
+
+void main() {
+  Map<String, String> countriesAndCapital = {
+    "India": "New Delhi",
+    "USA": " Washing Don DC",
+    "UK": "London"
+  };
+  print(countriesAndCapital);
+}
+....................................................................................
+			 Records
+....................................................................................
+Records are an anonymous,immutable,aggregate type. Like other collection types, they let you bundle multiple objects. 
+Collections are dynamic types, but Records are fixed.
+
+Record syntax:
+ var record = ('hello',a:2,b:true,'last')
+
+
+Without Records if you want to return multiple values from the function , you have use Object
+
+eg:
+class Location {
+  int lat;
+  int lng;
+
+  Location(this.lat, this.lng);
+}
+
+Location getLocation() {
+  int lat = 10;
+  int lng = 9223;
+  return Location(lat, lng);
+}
+
+void main() {
+  Location location = getLocation();
+  print(location.lat);
+  print(location.lng);
+}
+
+Records are going to replace "class" still you can return multiple values from function.
+
+
+void main() {
+  (int, int) getMyLocation() {
+    int lat = 10;
+    int lng = 9223;
+    return (lat, lng);
+  }
+  var location = getMyLocation();
+  print(location);
+}
+
+How to access record fileds?
+
+ Dart exposes special "getter functions" $1 means first value $2 means second value, and so on ,  $n other values.
+
+// class Location {
+//   int lat;
+//   int lng;
+//
+//   Location(this.lat, this.lng);
+// }
+//
+
+void main() {
+  // (int, int) getMyLocation() {
+  //   int lat = 10;
+  //   int lng = 9223;
+  //   return (lat, lng);
+  // }
+  (int, int) getMyLocation() {
+    int lat = 10;
+    int lng = 9223;
+    return (lat, lng);
+  }
+
+  var location = getMyLocation();
+  print(location);
+  print(location.$1);
+  print(location.$2);
+  //Destructuring
+  final (lat, lng) = getMyLocation();
+  print("lat=$lat lng=$lng");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
