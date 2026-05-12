@@ -3602,6 +3602,124 @@ void main(){
 }
 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
+..................................................................................
+				Dart Async Programming
+..................................................................................
+
+When you call any method/fun to perform some cpu intensive task, generally that function blocks the current thread.
+lets say if you read a file from the disk or data from the network, if you are doing some animations, these task takes more time than expected.
+Generally User interface applications, runs in thread called main thread or ui thread.
+from the ui thread if you start doing any network operation which blocks the main/ui thread so that the UI would be unresponsive.
+
+if UI thread is blocked because of any io operations, user cant continue to work with app, which degrades the user experience.
+
+In order to improve the user expereince, we should not do any io task in the UI Thread, rather we need to "isloate" the task into separate thread, later that thread need to communicate with main thread.
+
+Dart provides  high level api abstraction to implement such non blocking or async programming technique.
+
+1.Future 
+2.Async...await 
+3.Stream
+4.isloates - new feature - low level
+
+Future:
+  In Dart, Future is object represents a value or error that is not yet available.
+It is used to represent a potential value, or error that will available at some time in the future.
+
+//Future value
+Future<String> getValue() {
+  return Future.value("Hello,I am async value");
+}
+
+void main() {
+  print("start");
+  getValue().then((value) => print(value));
+  print("going on");
+  print("end");
+}
+
+Handling errors and value:
+//Future value
+Future<String> getValue() {
+  return Future.value("Hello,I am async value");
+}
+
+Future<String> getError() {
+  return Future.error("somthing went wrong!");
+}
+
+void main() {
+  print("start");
+  getValue().then((value) => print(value));
+  getError().then((value) => print(value));
+  print("going on");
+  print("end");
+}
+...........
+Future with Delay:
+..................
+Future<String> getUserName() {
+  return Future.delayed(Duration(seconds: 2), () => "Subramnaian");
+}
+void main(){
+  print("start");
+  getUserName().then((value) => print(value));
+  print("end");
+}
+...................................................................................
+		          Async and await 
+...................................................................................
+
+Async...await is not new concept rather which simplifies the Future subscriptions.
+async...await are keywords allows us to write async code that looks and behaves like sync code, making it easier to read.
+
+async keyword:
+  The function which resolves a future
+
+
+//Future value
+Future<String> getValue() {
+  return Future.value("Hello,I am async value");
+}
+
+normal function
+void getData(){ 
+   getValue().then(value=>print(value)) ;  
+}
+
+async 
+void getData() async { 
+  try{
+   final data = await getValue();
+  }
+  catch(e) {
+
+  }
+}
+
+...
+Future<String> getUserName() {
+  return Future.delayed(Duration(seconds: 2), () => "Subramanian");
+}
+Future<String> getMessage(String name) {
+  return Future.delayed(Duration(seconds: 3), () => "Hello $name");
+}
+
+void getData() async {
+  try {
+    String name = await getUserName();
+    String res =  await getMessage(name);
+    print(res);
+  } catch (e) {
+    print(e);
+  }
+}
+
+void main() {
+  print("start");
+  getData();
+  print("end");
+}
 
 
 
